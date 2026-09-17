@@ -1,0 +1,6 @@
+# Fully-qualified theorem names that must compile with NO sorry and only the
+# three standard Lean axioms. One per line. Lines starting with # are ignored.
+JSPFormal.sum_odds
+JSPFormal.twelve_divisor_rich
+JSPFormal.pigeonhole
+JSPFormal.infinitely_many_primes
