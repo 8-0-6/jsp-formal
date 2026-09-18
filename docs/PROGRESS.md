@@ -73,6 +73,24 @@ earlier passes had missed.
 | Is our top candidate already formalized upstream? | selection | Check Mathlib, its Archive, `google-deepmind/formal-conjectures` before committing |
 | Does 40 h / $300 hold? | budgets | Benchmark is a competitor's `219usd_38h` filename. Recalibrate after problem one |
 
+## Competitive position, measured 2026-09-18
+
+832 PRs have been opened against the awards repo. Ours (#969, 2026-09-18 02:06Z)
+is **672nd by submission time**, so we are in the last quintile, not early. The
+rush happened on 2026-09-17 (462 PRs in one day) while we were still building the
+harness and deep-diving candidates.
+
+- merged: 15, **all by the maintainer account**, all documentation. Zero external
+  submissions have been merged.
+- closed unmerged: 115. Spot-checking these, most are **self-withdrawals**: the
+  submitter's own QA found the formalization did not match the catalogued
+  statement. That is precisely the failure mode `FIDELITY.md` exists to prevent.
+- still open: 702.
+
+On JSP-000301 specifically we are first: PR #969 precedes the duplicate #1197 by
+about eleven hours. Overall lateness likely matters less than per-problem
+priority, since awards are assessed per problem rather than from a fixed pot.
+
 ## Known constraints
 
 - **Disk.** Mathlib alone is 7.4 GB and the machine runs close to full. Do not
