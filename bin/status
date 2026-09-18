@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+"""Progress dashboard across all problems. Usage: bin/status [JSP-ID]"""
+import os, sys
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "harness"))
+import ledger as L
+
+B, D, G, R, Y, C = "\033[1m", "\033[2m", "\033[32m", "\033[31m", "\033[33m", "\033[0m"
+MARK = {"proved": f"{G}✔{C}", "stub": "·", "proving": f"{Y}◐{C}",
+        "failed": f"{R}✗{C}", "decomposed": "▸"}
+
+def bar(done, total, w=24):
+    if not total: return f"{D}{'─'*w}{C} 0/0"
+    f = int(w * done / total)
+    return f"{G}{'█'*f}{C}{D}{'░'*(w-f)}{C} {done}/{total}"
+
+def show(led, detail):
+    c = L.counts(led)
+    total = sum(c.values())
+    print(f"\n{B}{led['id']}{C}  {led['title'][:64]}")
+    print(f"  stage      {B}{led['stage']}{C}")
+    lk = led["statement"]["locked"]
+    print(f"  statement  {(G+'LOCKED'+C) if lk else (Y+'not locked'+C)}"
+          f"{'' if not lk else '  (' + str(led['statement']['locked_at']) + ')'}"
+          f"   fidelity sign-off: {'yes' if led['statement'].get('fidelity_signed_off') else 'no'}")
+    print(f"  lemmas     {bar(c['proved'], total)}")
+    sp, bd = led["spent"], led["budget"]
+    over = sp["hours"] > bd["hours"] or sp["usd"] > bd["usd"]
+    print(f"  budget     {(R if over else '')}{sp['hours']:.1f}/{bd['hours']}h  "
+          f"${sp['usd']:.0f}/${bd['usd']}{C if over else ''}")
+    if detail and led.get("goals"):
+        print(f"  {D}goals:{C}")
+        for g in led["goals"]:
+            dep = f" {D}← {', '.join(g['depends_on'])}{C}" if g.get("depends_on") else ""
+            at = f" {D}({g['attempts']} attempts){C}" if g.get("attempts") else ""
+            print(f"    {MARK.get(g.get('status','stub'),'?')} {g['id']:<22}{dep}{at}")
+    if detail and led.get("log"):
+        print(f"  {D}recent:{C}")
+        for e in led["log"][-5:]:
+            print(f"    {D}{e['ts']}{C}  {e['event']}")
+
+leds = L.all_ledgers(ROOT)
+if not leds:
+    print("No problems yet. Create one:\n  bin/new-problem JSP-000123 slug \"Title\"")
+    sys.exit(0)
+want = sys.argv[1] if len(sys.argv) > 1 else None
+sel = [l for l in leds if l["id"] == want] if want else leds
+if not sel: sys.exit(f"no such problem: {want}")
+for l in sel:
+    show(l, detail=bool(want) or len(leds) == 1)
+if not want:
+    print(f"\n{D}{len(leds)} problem(s). `bin/status <JSP-ID>` for detail.{C}")

@@ -1,0 +1,75 @@
+#!/usr/bin/env python3
+"""Decomposition gate.
+
+Answers, as a kernel fact rather than an opinion: *does the main theorem
+actually follow from the lemmas we plan to prove?*
+
+Usage: bin/skeleton <file.lean> <MainTheoremName>
+
+Passes when:
+  1. the file compiles with no real errors (`sorry` warnings are expected here),
+  2. the named main theorem exists,
+  3. the main theorem's own proof contains no `sorry`, i.e. it is genuinely
+     derived from the stubbed lemmas rather than stubbed itself.
+
+Run this BEFORE spending any compute filling stubs. If it fails, the plan is
+wrong and replanning costs minutes instead of days.
+"""
+import json, os, re, subprocess, sys
+
+DECL = re.compile(r'^\s*(?:@\[[^\]]*\]\s*)?(?:private\s+|protected\s+|nonrec\s+)?'
+                  r'(theorem|lemma|def|instance|abbrev|example)\s+([A-Za-z_][\w.\'!?]*)', re.M)
+
+def decl_body(src, name):
+    """Text of the declaration `name`, up to the next top-level declaration."""
+    marks = [(m.start(), m.group(2)) for m in DECL.finditer(src)]
+    for i, (pos, nm) in enumerate(marks):
+        if nm == name or nm.endswith("." + name):
+            end = marks[i + 1][0] if i + 1 < len(marks) else len(src)
+            return src[pos:end]
+    return None
+
+def main():
+    if len(sys.argv) != 3:
+        sys.exit(__doc__)
+    path, main_name = sys.argv[1], sys.argv[2]
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    src = open(path, encoding="utf-8").read()
+
+    r = subprocess.run([os.path.join(root, "bin", "check"), "--json", path],
+                       capture_output=True, text=True)
+    try:
+        res = json.loads(r.stdout)
+    except json.JSONDecodeError:
+        sys.exit(f"skeleton: could not parse checker output:\n{r.stdout}\n{r.stderr}")
+
+    ok = True
+    errs = res.get("errors", [])
+    if errs:
+        print("FAIL  skeleton does not compile:")
+        for e in errs:
+            p = e.get("pos", {})
+            print(f"  {path}:{p.get('line','?')}:{p.get('column','?')}: {e.get('data','')}")
+        ok = False
+    else:
+        print("pass  skeleton compiles")
+
+    body = decl_body(src, main_name)
+    if body is None:
+        print(f"FAIL  main theorem '{main_name}' not found in {path}")
+        ok = False
+    else:
+        print(f"pass  main theorem '{main_name}' found")
+        if re.search(r'\bsorry\b|\badmit\b', body):
+            print(f"FAIL  '{main_name}' is itself stubbed; it must follow FROM the lemmas")
+            ok = False
+        else:
+            print(f"pass  '{main_name}' is derived, not stubbed")
+
+    stubs = len(res.get("sorries", []))
+    print(f"info  {stubs} open stub(s) remaining")
+    print("\nDECOMPOSITION VALID" if ok else "\nDECOMPOSITION INVALID")
+    return 0 if ok else 1
+
+if __name__ == "__main__":
+    sys.exit(main())

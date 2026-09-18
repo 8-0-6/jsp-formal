@@ -1,0 +1,72 @@
+# Progress
+
+Current state and the next concrete step. Update this at the end of every
+working session. Detailed per-problem state lives in `problems/<ID>/ledger.json`
+and renders with `bin/status`.
+
+**Last updated:** 2026-09-17
+
+---
+
+## Where we are
+
+**Stage: harness built, no problem selected yet.**
+
+The environment and the verification spine are complete and tested. No
+formalization work has started, because the problem is not chosen. Choosing it
+is the next step and is worth doing carefully: per `PRD.md`, selection is more
+than half the outcome.
+
+## Done
+
+- [x] Lean v4.35.0-rc2 + Mathlib v4.35.0-rc2, toolchain pinned, cache prebuilt
+- [x] `bin/verify`: build + forbidden-construct scan + `#print axioms` audit
+- [x] `bin/verify` negative-tested: catches a raw `sorry`, and a `sorry`
+      laundered through a custom `axiom`, each by two independent layers
+- [x] `bin/check`: REPL daemon, ~25 ms warm vs 8 to 13 s for `lake env lean`
+- [x] `bin/check` guards against silently-broken imports, which the raw REPL
+      reports as a valid empty environment with no error
+- [x] `bin/skeleton`: decomposition gate, tested against valid and invalid decompositions
+- [x] `bin/status`, `bin/new-problem`, ledger schema
+- [x] `PRD.md`, `PIPELINE.md`, `DECISIONS.md`, `SUBMISSION.md`
+- [x] Prize mechanism understood and documented: 287 Solved problems have no
+      Lean proof; zero awards granted so far
+
+## Next step
+
+**Run Stage 0 (scout) across the 287 candidates and produce `docs/TRIAGE.md`.**
+
+Parallel, read-only, cheap. Each scout scores one problem on resolution shape,
+solution-paper length, Mathlib coverage, statement risk, and whether it is
+already formalized elsewhere. Output is a ranked shortlist of 3 to 5.
+
+Then Stage 1 on the top candidate, which ends with a founder sign-off on the
+English back-translation of the Lean statement.
+
+## Open questions
+
+| Question | Blocks | Notes |
+| --- | --- | --- |
+| Which problem? | everything | Stage 0 answers it |
+| Is our top candidate already formalized upstream? | selection | Check Mathlib, its Archive, `google-deepmind/formal-conjectures` before committing |
+| Does 40 h / $300 hold? | budgets | Benchmark is a competitor's `219usd_38h` filename. Recalibrate after problem one |
+
+## Known constraints
+
+- **Disk.** Mathlib alone is 7.4 GB and the machine runs close to full. Do not
+  add a second toolchain without checking free space first.
+- **Cold start.** The first `bin/check` after a reboot, or with a new import set,
+  costs about 25 seconds. Every check after that is milliseconds. Keep import
+  blocks stable across a working session.
+- **Web tools.** `WebSearch` and `WebFetch` were failing in-session on
+  2026-09-17 with a model configuration error. `curl` works, and the awards repo
+  can be cloned directly.
+
+## Log
+
+| Date | Entry |
+| --- | --- |
+| 2026-09-17 | Prize researched, mechanism documented, 287-problem opportunity identified |
+| 2026-09-17 | Lean + Mathlib installed; `bin/verify` built and negative-tested |
+| 2026-09-17 | REPL daemon built; inner loop ~400x faster |
+| 2026-09-17 | Pipeline designed; PRD, decisions, and submission checklist written |

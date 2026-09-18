@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+"""Fast Lean check. Usage:
+     bin/check <file.lean>      check a file
+     bin/check -                check stdin
+     bin/check --stop           stop the daemon
+     bin/check --status         daemon status
+     bin/check --json <file>    machine-readable output (for agents)
+Starts the REPL daemon on first use. First check with a new import set pays the
+Mathlib load (~30s); every check after that is milliseconds.
+"""
+import json, os, socket, subprocess, sys, time
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SOCK = os.path.join(ROOT, ".harness", "repl.sock")
+LOG  = os.path.join(ROOT, ".harness", "repl.log")
+SERVER = os.path.join(ROOT, "harness", "replserver.py")
+
+def talk(req, timeout=600):
+    s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    s.settimeout(timeout)
+    s.connect(SOCK)
+    s.sendall((json.dumps(req) + "\n").encode())
+    buf = b""
+    while not buf.endswith(b"\n"):
+        chunk = s.recv(65536)
+        if not chunk: break
+        buf += chunk
+    s.close()
+    return json.loads(buf.decode())
+
+def alive():
+    if not os.path.exists(SOCK): return False
+    try: return talk({"op": "ping"}, timeout=5).get("ok", False)
+    except Exception: return False
+
+def ensure():
+    if alive(): return
+    if os.path.exists(SOCK):
+        try: os.unlink(SOCK)
+        except OSError: pass
+    os.makedirs(os.path.dirname(SOCK), exist_ok=True)
+    sys.stderr.write("[check] starting Lean REPL daemon (first load takes ~30s)...\n")
+    with open(LOG, "ab") as lg:
+        subprocess.Popen([sys.executable, SERVER], cwd=ROOT, stdout=lg, stderr=lg,
+                         start_new_session=True)
+    for _ in range(240):
+        if alive():
+            sys.stderr.write("[check] daemon ready\n"); return
+        time.sleep(0.5)
+    sys.exit("[check] daemon failed to start; see .harness/repl.log")
+
+def main():
+    args = sys.argv[1:]
+    if not args: sys.exit(__doc__)
+    if args[0] == "--stop":
+        if alive(): talk({"op": "shutdown"}); print("daemon stopped")
+        else: print("daemon not running")
+        return 0
+    if args[0] == "--status":
+        print(json.dumps(talk({"op": "stats"}) if alive() else {"ok": False, "running": False}))
+        return 0
+    as_json = args[0] == "--json"
+    if as_json: args = args[1:]
+    target = args[0]
+    ensure()
+    req = {"code": sys.stdin.read()} if target == "-" else {"file": os.path.abspath(target)}
+    r = talk(req)
+
+    if as_json:
+        print(json.dumps(r, indent=2)); return 0 if r.get("ok") else 1
+
+    name = "<stdin>" if target == "-" else target
+    for w in r.get("warnings", []):
+        pos = w.get("pos", {})
+        print(f"warning {name}:{pos.get('line','?')}:{pos.get('column','?')}: {w.get('data','')}")
+    for e in r.get("errors", []):
+        pos = e.get("pos", {})
+        print(f"ERROR {name}:{pos.get('line','?')}:{pos.get('column','?')}: {e.get('data','')}")
+    for s in r.get("sorries", []):
+        pos = s.get("pos", {})
+        print(f"SORRY {name}:{pos.get('line','?')}:{pos.get('column','?')}: goal:\n{s.get('goal','')}")
+    ms, cold = r.get("ms", 0), not r.get("env_cached", True)
+    print(f"{'OK' if r.get('ok') else 'FAIL'}  ({ms} ms{', cold import' if cold else ''})")
+    return 0 if r.get("ok") else 1
+
+if __name__ == "__main__":
+    sys.exit(main())

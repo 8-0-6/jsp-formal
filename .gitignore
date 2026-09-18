@@ -1,1 +1,4 @@
 .lake/
+.harness/
+__pycache__/
+*.pyc

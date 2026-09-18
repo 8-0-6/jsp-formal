@@ -1,0 +1,75 @@
+#!/usr/bin/env python3
+"""Scaffold a problem directory.
+Usage: bin/new-problem JSP-000123 short-slug "Problem title"
+"""
+import os, sys
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "harness"))
+import ledger as L
+
+if len(sys.argv) < 4:
+    sys.exit(__doc__)
+pid, slug, title = sys.argv[1], sys.argv[2], " ".join(sys.argv[3:])
+d = os.path.join(ROOT, "problems", pid)
+if os.path.exists(os.path.join(d, "ledger.json")):
+    sys.exit(f"{pid} already exists")
+os.makedirs(d, exist_ok=True)
+
+anchor = pid.replace("-", "-")
+open(os.path.join(d, "PROBLEM.md"), "w").write(f"""# {pid} · {title}
+
+## Catalog entry
+
+Source: https://github.com/TheJustinSunPrize/awards/blob/main/problems/README.md#{anchor}
+
+## Original statement (verbatim from the source paper)
+
+> TODO paste the exact theorem, with paper, theorem number, and page.
+
+## Sources
+
+| Role | Reference |
+| --- | --- |
+| Original problem | TODO |
+| Complete solution | TODO |
+
+## Lean statement (English back-translation)
+
+> TODO. Filled during the statement stage and compared against the verbatim
+> statement above. Divergence here is the single most likely way we lose.
+
+## Scope notes
+
+Anything the formalization must be careful about: edge cases, degenerate
+inputs, quantifier order, whether the paper's claim is asymptotic.
+""")
+open(os.path.join(d, "FIDELITY.md"), "w").write(f"""# {pid} fidelity review
+
+Statement fidelity is the one thing Lean's kernel cannot check for us.
+
+## 1. Counterexample hunt (`plausible`)
+- [ ] Ran `plausible` against the statement and any suspicious lemma
+- Result: TODO
+
+## 2. Vacuity witness
+- [ ] Constructed an instance satisfying every hypothesis, verified in Lean
+- Witness theorem: TODO
+
+## 3. Blind back-translation
+Agent rendered the Lean statement into English without seeing the paper:
+> TODO
+
+Divergences from the verbatim statement: TODO
+
+## 4. Adversarial read
+Findings from an agent asked to argue the Lean statement is WEAKER than the paper's:
+> TODO
+
+## 5. Sign-off
+- [ ] Founder has read the back-translation and agrees it matches
+- Signed: TODO
+""")
+led = L.blank(pid, slug, title)
+L.save(ROOT, led)
+print(f"created problems/{pid}/  (PROBLEM.md, FIDELITY.md, ledger.json)")
+print("next: fill PROBLEM.md, then run the statement stage")
