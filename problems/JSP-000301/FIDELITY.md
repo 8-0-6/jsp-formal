@@ -144,6 +144,23 @@ we judge it acceptable, but a reviewer may disagree.
 
 ## 5. Sign-off
 
-- [ ] Founder has read the back-translation in section 3 and agrees it says what
-      the catalog asks.
-- Signed: pending
+- [x] Authorised for submission by the repository owner on 2026-09-17.
+
+**Recorded honestly:** the owner authorised submission without reviewing the
+statement line by line, after being shown the plain-English rendering of the
+result, told that the expected prize tier is low, and told that the Golomb
+attribution rests on erdosproblems.com rather than on the primary source.
+
+The pipeline's design intent is that a human reads the back-translation in
+section 3 before submission. That did not happen here. The substitutes actually
+performed were:
+
+1. `powerful_iff_primeFactors`, machine-checked agreement with the independent
+   formalization of powerful numbers in `google-deepmind/formal-conjectures`.
+2. The blind back-translation in section 3, which matched the catalog wording
+   with no divergences.
+3. The adversarial review in section 4, whose one upheld finding was fixed.
+4. Arithmetic verified three independent ways.
+
+That is stronger evidence than a human skim would have produced, but it is not
+the same thing, and the record should say so.

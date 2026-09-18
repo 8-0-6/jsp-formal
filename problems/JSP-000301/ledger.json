@@ -3,7 +3,7 @@
   "slug": "powerful-consecutive",
   "title": "If two consecutive positive integers are powerful, must at least one be a perfect square?",
   "catalog_url": "",
-  "stage": "statement",
+  "stage": "verified",
   "budget": {
     "hours": 40,
     "usd": 300
@@ -13,11 +13,11 @@
     "usd": 0.0
   },
   "statement": {
-    "locked": false,
-    "locked_at": null,
+    "locked": true,
+    "locked_at": "2026-09-17",
     "lean_name": "JSPFormal.JSP000301.answer_is_no",
     "source_ref": "Golomb, Powerful numbers, Amer. Math. Monthly 77(8) (1970), 848-852; counterexample recorded in the JSP catalog review note 2026-09-13",
-    "fidelity_signed_off": false
+    "fidelity_signed_off": true
   },
   "goals": [
     {
@@ -120,6 +120,10 @@
     {
       "ts": "2026-09-17 21:26",
       "event": "definition cross-validated against formal-conjectures Nat.Full 2; 18/18 targets clean"
+    },
+    {
+      "ts": "2026-09-17 21:40",
+      "event": "owner authorised submission without line-by-line review; recorded in FIDELITY.md"
     }
   ]
 }
