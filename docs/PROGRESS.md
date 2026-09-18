@@ -31,6 +31,10 @@ than half the outcome.
 - [x] `PRD.md`, `PIPELINE.md`, `DECISIONS.md`, `SUBMISSION.md`
 - [x] Prize mechanism understood and documented: 287 Solved problems have no
       Lean proof; zero awards granted so far
+- [x] `plausible` verified working: refuted a false statement in seconds
+      (found n=6 as a counterexample), which is the Stage 1 falsification tool
+- [x] Remote repo `github.com/8-0-6/jsp-formal`, **private**, owned by the
+      claiming account. Flip to public at submission (see `SUBMISSION.md`)
 
 ## Next step
 
@@ -70,3 +74,4 @@ English back-translation of the Lean statement.
 | 2026-09-17 | Lean + Mathlib installed; `bin/verify` built and negative-tested |
 | 2026-09-17 | REPL daemon built; inner loop ~400x faster |
 | 2026-09-17 | Pipeline designed; PRD, decisions, and submission checklist written |
+| 2026-09-17 | Private repo created under 8-0-6 and pushed |

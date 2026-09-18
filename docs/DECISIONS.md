@@ -81,3 +81,11 @@ statement stage. Breach means abandon and write a post-mortem.
 problem, so that is the realistic scale. With 287 candidates available, sunk cost
 is the main threat to the strategy.
 **Reverse if:** measured data from our own first problem says the benchmark is wrong.
+
+### D11 · Remote repo created private under the claiming account
+**2026-09-17.** `github.com/8-0-6/jsp-formal`, private.
+**Why:** local-only git meant no backup. The prize requires the repo be owned by
+the account that files the claim, so it is created under `8-0-6` from the start
+rather than transferred later, since transfers complicate the ownership check.
+Private for now per D8; flip to public at submission.
+**Reverse if:** never private-vs-public is revisited at submission time only.
