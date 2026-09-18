@@ -34,20 +34,53 @@ definition from [Go70] and the one the catalog's review note uses.
 | Role | Reference |
 | --- | --- |
 | Original problem | Erdős, see [Er76d, p.31], [ErGr80, p.68] |
-| Complete solution (counterexample) | [Go70] S. W. Golomb, *Powerful numbers*, Amer. Math. Monthly 77(8) (1970), 848-852. <https://doi.org/10.2307/2317020> |
+| Complete solution (counterexample) | [Go70] S. W. Golomb, *Powerful numbers*, Amer. Math. Monthly 77 (1970), **848-855**. <https://doi.org/10.2307/2317020> |
+| Attribution source (verified) | <https://www.erdosproblems.com/latex/365> |
 | Related | [Wa76] Walker, *Consecutive integer pairs of powerful numbers...*, Fibonacci Quart. (1976), 111-116 |
 | Related | [Gu04] Guy, *Unsolved problems in number theory* (2004) |
+
+## Attribution, and what we have actually verified
+
+The prize catalog credits Golomb. We checked the source it cites,
+<https://www.erdosproblems.com/latex/365>, which states verbatim:
+
+> "The answer to the first question is no: Golomb [Go70] observed that both
+> 12167 = 23³ and 12168 = 2³3²13² are powerful. Walker [Wa76] proved that the
+> equation 7³x² = 3³y² + 1 has infinitely many solutions, giving infinitely many
+> counterexamples."
+
+Two honest limits on this:
+
+1. **We have not read [Go70] itself.** It is paywalled. We record the attribution
+   as the cited source gives it, and we do not assert a page or theorem number
+   inside that paper. If a reviewer requires the primary source, that is the gap.
+2. Note the page range differs between sources: the prize catalog says 848-852,
+   erdosproblems.com says 848-855. We follow the latter and flag the discrepancy.
+
+**We claim the Lean formalization role only.** The mathematics is Golomb's, and
+nothing in our submission should be read as claiming otherwise.
 
 ## Scope
 
 This record covers **only** the yes/no question above.
 
 It does **not** cover the separate counting question in
-[Erdős problem #365](https://www.erdosproblems.com/365) ("is the number of such
-`n ≤ x` bounded by `(log x)^{O(1)}`?"), which remains **open**. erdosproblems.com
-marks #365 as OPEN for that reason; the prize catalog deliberately splits the two
-and marks this half Solved. Our formalization must not claim anything about the
-counting question.
+[Erdős problem #365](https://www.erdosproblems.com/365).
+
+Erdős #365 bundles two questions, and the distinction matters, so here is the
+evidence rather than an inference. Its source text reads:
+
+> "Do all pairs of consecutive powerful numbers `n` and `n+1` come from solutions
+> to Pell equations? In other words, must either `n` or `n+1` be a square?
+> **Is the number of such `n ≤ x` bounded by `(log x)^{O(1)}`?**"
+
+and then: "**The answer to the first question is no**: Golomb [Go70] observed
+that both 12167 = 23³ and 12168 = 2³3²13² are powerful."
+
+So the first clause is settled and the counting clause is not. The site marks
+#365 OPEN on account of the counting clause; the prize catalog splits the two and
+marks this half Solved. Our formalization covers the settled clause only and says
+nothing about counting, density, or asymptotics anywhere.
 
 ## Lean statement (English back-translation)
 

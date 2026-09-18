@@ -9,7 +9,7 @@
     "usd": 300
   },
   "spent": {
-    "hours": 1.0,
+    "hours": 2.5,
     "usd": 0.0
   },
   "statement": {
@@ -84,6 +84,12 @@
       "status": "proved",
       "depends_on": [],
       "attempts": 1
+    },
+    {
+      "id": "powerful_iff_primeFactors",
+      "status": "proved",
+      "depends_on": [],
+      "attempts": 1
     }
   ],
   "log": [
@@ -98,6 +104,22 @@
     {
       "ts": "2026-09-17 21:14",
       "event": "fidelity: blind back-translation and adversarial review dispatched"
+    },
+    {
+      "ts": "2026-09-17 21:26",
+      "event": "adversarial review returned REJECT; 1 of 3 findings upheld and fixed"
+    },
+    {
+      "ts": "2026-09-17 21:26",
+      "event": "attribution verified against erdosproblems.com/latex/365; page range corrected to 848-855"
+    },
+    {
+      "ts": "2026-09-17 21:26",
+      "event": "prior-art check done: no 365.lean in formal-conjectures, no Powerful in Mathlib"
+    },
+    {
+      "ts": "2026-09-17 21:26",
+      "event": "definition cross-validated against formal-conjectures Nat.Full 2; 18/18 targets clean"
     }
   ]
 }

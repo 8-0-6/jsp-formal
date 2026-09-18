@@ -10,7 +10,7 @@ and renders with `bin/status`.
 
 ## Where we are
 
-**Stage: triage complete, shortlist of 3, no problem committed yet.**
+**Stage: JSP-000301 proved and verified. Awaiting founder sign-off before submission.**
 
 The environment and the verification spine are complete and tested. No
 formalization work has started, because the problem is not chosen. Choosing it
@@ -45,13 +45,15 @@ than half the outcome.
 
 ## Next step
 
-**Deep-dive the top two candidates in `docs/TRIAGE.md`.** Read Heath-Brown 1984
-(JSP-000787) and BNPZ 2026 (JSP-000320), and produce a real blueprint estimate for
-each, including which Mathlib pieces already exist. Budget 4 hours. Only then commit.
+**Founder sign-off on `problems/JSP-000301/FIDELITY.md` section 5.** That is the
+Stage 1 gate and the one check no machine can do. Then, if approved, Stage 5:
+flip the repo public, PR the awards catalog, file the claim issue.
 
-The headline from triage: 298 of 577 solved Erdős problems are already
-Lean-verified, so the easy wins are gone. A realistic first target is weeks of
-work on a 5 to 15 page paper.
+Both shortlisted candidates died on deep-dive (#387 is 62 pages using sieve
+methods and exponential sums, not the 7 the heuristic reported; #946 is
+Heath-Brown's sieve argument). Fixing the heuristic to exclude arXiv-cited
+entries and require every cited paper to be short surfaced JSP-000301, which the
+earlier passes had missed.
 
 ## Open questions
 
@@ -83,3 +85,7 @@ work on a 5 to 15 page paper.
 | 2026-09-17 | Private repo created under 8-0-6 and pushed |
 | 2026-09-17 | Stage 0 triage: 1,249 problems crawled, 279 solved-not-formalized found, shortlist of 3 |
 | 2026-09-17 | CI caught a directory-name portability bug in bin/verify; fixed, CI green |
+| 2026-09-17 | Deep-dive killed both shortlist candidates; corrected heuristic found JSP-000301 |
+| 2026-09-17 | JSP-000301 proved end to end, 18/18 targets axiom-clean, CI green |
+| 2026-09-17 | Blind back-translation found a missing IsSquare witness; fixed |
+| 2026-09-17 | Adversarial review returned REJECT; 1 of 3 findings upheld and fixed, 2 refuted against primary sources |

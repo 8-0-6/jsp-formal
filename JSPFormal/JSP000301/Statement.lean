@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Yanbo Wang
 -/
 import Mathlib.Data.Nat.Prime.Basic
+import Mathlib.Data.Nat.Factorization.Basic
 import Mathlib.Algebra.Group.Even
 import Mathlib.Tactic
 
@@ -13,14 +14,21 @@ import Mathlib.Tactic
 *If two consecutive positive integers are powerful, must at least one be a
 perfect square?*
 
-The answer is **no**. Golomb [Go70] gave the counterexample `12167 = 23³` and
+The answer is **no**, by the counterexample `12167 = 23³` and
 `12168 = 2³ · 3² · 13²`: both are powerful and neither is a perfect square.
+
+Attribution, verified against <https://www.erdosproblems.com/latex/365>, which
+states: "The answer to the first question is no: Golomb [Go70] observed that both
+12167 = 23³ and 12168 = 2³3²13² are powerful." We have not independently read
+[Go70]; we record the attribution as that source gives it. We claim only the Lean
+formalization, not the mathematics.
 
 This file formalizes only that yes/no question. It says nothing about the
 separate counting question of Erdős problem #365, which remains open.
 
 ## References
-* [Go70] S. W. Golomb, *Powerful numbers*, Amer. Math. Monthly 77(8) (1970), 848-852.
+* [Go70] S. W. Golomb, *Powerful numbers*, Amer. Math. Monthly 77 (1970), 848-855.
+* Attribution source: <https://www.erdosproblems.com/latex/365>
 -/
 
 namespace JSPFormal.JSP000301
@@ -76,6 +84,27 @@ than the catalog's, so it is the place a silent error would hide. A definition
 that were accidentally trivial (always true) would make `answer_is_no` provable
 and meaningless. These checks show it genuinely discriminates. -/
 
+/-- **Independent cross-validation of the definition.**
+
+`google-deepmind/formal-conjectures` formalizes powerful numbers as
+`Nat.Full 2`, namely `∀ p ∈ n.primeFactors, p ^ 2 ∣ n`
+(`FormalConjecturesForMathlib/Data/Nat/Full.lean`). That is a separately written,
+publicly reviewed formalization of the same notion, so agreeing with it is real
+evidence that our wording is right rather than merely self-consistent.
+
+The two agree for every `n`, including `n = 0`, where both hold: ours because
+`p ^ 2 ∣ 0`, theirs because `(0 : ℕ).primeFactors = ∅`. -/
+theorem powerful_iff_primeFactors (n : ℕ) :
+    Powerful n ↔ ∀ p ∈ n.primeFactors, p ^ 2 ∣ n := by
+  constructor
+  · intro h p hp
+    rw [Nat.mem_primeFactors] at hp
+    exact h p hp.1 hp.2.1
+  · intro h p hp hdvd
+    rcases eq_or_ne n 0 with rfl | hn
+    · exact dvd_zero _
+    · exact h p (Nat.mem_primeFactors.mpr ⟨hp, hdvd, hn⟩)
+
 /-- 12 = 2² · 3 is **not** powerful: 3 divides it but 9 does not. -/
 theorem not_powerful_12 : ¬ Powerful 12 := by
   intro h
@@ -96,9 +125,15 @@ theorem isSquare_sq (a : ℕ) : IsSquare (a * a) := ⟨a, rfl⟩
 /-- Sanity: a concrete square, and one adjacent to a powerful number. -/
 theorem isSquare_9 : IsSquare (9 : ℕ) := ⟨3, by norm_num⟩
 
-/-- Sanity: `Powerful 0` holds under this definition, because every prime divides
-0. The `0 < n` hypothesis in the statements below is therefore load-bearing, not
-decoration. -/
+/-- Sanity: `Powerful 0` holds under this definition, because `p ^ 2 ∣ 0` for
+every `p`.
+
+The `0 < n` hypothesis is load-bearing in `exists_consecutive_powerful`: without
+it, `n = 0` would be a free witness there. It is **not** needed for
+`answer_is_no`, since `IsSquare 0` holds and so `n = 0` satisfies that
+conclusion anyway. The guard is kept on both for faithfulness to the catalog's
+wording ("two consecutive **positive** integers"), not because the main theorem
+requires it. -/
 theorem powerful_zero : Powerful 0 := fun p _ _ => dvd_zero (p ^ 2)
 
 /-- A perfect square is powerful, so the two notions are not accidentally disjoint. -/

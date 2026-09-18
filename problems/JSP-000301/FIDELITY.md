@@ -73,7 +73,74 @@ claim minimality**, because we have not proved it.
 
 ## 4. Adversarial read
 
-See below.
+An agent was given the catalog question, the Lean, and the repository, and told to
+build the strongest possible case for **rejection**. It returned REJECT with three
+substantive findings. Adjudicated against primary sources:
+
+### 4.1 "The Golomb attribution is false" — REFUTED, but it forced the check
+
+The reviewer argued from chronology (Erdős poses the question in 1976 and
+Erdős-Graham in 1980, *after* Golomb 1970) and from the fact that Golomb's Pell
+construction `x² - 8y² = 1` yields only pairs containing a square (8/9, 288/289,
+675/676, 9800/9801), which 12167/12168 is not.
+
+The inference is reasonable and wrong. The source the catalog cites,
+<https://www.erdosproblems.com/latex/365>, states: *"The answer to the first
+question is no: Golomb [Go70] observed that both 12167 = 23³ and 12168 = 2³3²13²
+are powerful."* Golomb both gave the Pell family **and** observed this separate
+pair; Walker [Wa76] later proved infinitely many counterexamples exist.
+
+The attack failed, but it was the right attack: the attribution had been copied
+from the catalog without checking. It is now verified, and the limits of that
+verification are written down in `PROBLEM.md`. It also surfaced a real citation
+error, the page range is 848-855, not 848-852.
+
+### 4.2 "The scope defense against the OPEN #365 is asserted, not established" — PARTLY UPHELD
+
+The claim was correct but the evidence was missing; `PROBLEM.md` said
+erdosproblems.com marks #365 OPEN "for that reason", which was our inference.
+The source text now quoted in `PROBLEM.md` shows #365 bundles a settled clause
+and an open counting clause. **Fixed:** inference replaced with the quotation.
+
+### 4.3 "`powerful_zero`'s docstring overreaches" — UPHELD
+
+We claimed the `0 < n` guard is load-bearing for the main theorem. It is not.
+The reviewer supplied a counter-proof, which we compiled and confirmed:
+
+```lean
+theorem answer_is_no_unguarded :
+    ¬ ∀ n : ℕ, Powerful n → Powerful (n + 1) → IsSquare n ∨ IsSquare (n + 1)
+```
+
+It holds because `IsSquare 0`, so `n = 0` satisfies the conclusion regardless.
+The guard is load-bearing only in `exists_consecutive_powerful`. **Fixed:**
+docstring corrected to say exactly where the guard matters and why it is kept.
+
+### 4.4 Process gaps — UPHELD, and closed
+
+The reviewer noted no prior-art check was recorded, which `PROGRESS.md` had
+itself flagged as an open question. Done now:
+
+- `google-deepmind/formal-conjectures` has **no** `365.lean`. No prior Lean
+  statement of this problem exists there.
+- Mathlib has no `Powerful` predicate and no occurrence of 12167.
+- erdosproblems.com marks #365 `OPEN`, not `(LEAN)`, so no verified Lean proof is
+  recorded upstream.
+
+It also produced an unexpected benefit. formal-conjectures *does* define powerful
+numbers, as `Nat.Full 2` = `∀ p ∈ n.primeFactors, p ^ 2 ∣ n`, for the neighbouring
+problem #364. That is an independently written, publicly reviewed formalization of
+the same notion, so `powerful_iff_primeFactors` now proves our definition
+equivalent to theirs for every `n`. This is much stronger evidence than any
+argument about wording.
+
+### 4.5 Remaining weakest point
+
+The reviewer's own "if you would accept, what is weakest" standard: **we have not
+read [Go70] directly**, it is paywalled, so the attribution rests on
+erdosproblems.com rather than the primary source. This is disclosed in
+`PROBLEM.md`. Since we claim only the formalization role and not the mathematics,
+we judge it acceptable, but a reviewer may disagree.
 
 ## 5. Sign-off
 

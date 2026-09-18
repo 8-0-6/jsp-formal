@@ -19,6 +19,7 @@ JSPFormal.JSP000301.exists_consecutive_powerful
 JSPFormal.JSP000301.not_powerful_12
 JSPFormal.JSP000301.not_powerful_2
 JSPFormal.JSP000301.powerful_sq
+JSPFormal.JSP000301.powerful_iff_primeFactors
 JSPFormal.JSP000301.isSquare_sq
 JSPFormal.JSP000301.isSquare_9
 JSPFormal.JSP000301.powerful_zero
