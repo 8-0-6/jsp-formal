@@ -4,7 +4,7 @@ Current state and the next concrete step. Update this at the end of every
 working session. Detailed per-problem state lives in `problems/<ID>/ledger.json`
 and renders with `bin/status`.
 
-**Last updated:** 2026-09-17
+**Last updated:** 2026-09-18
 
 ---
 
@@ -49,9 +49,16 @@ than half the outcome.
 the submitted branch: PR #969 pins commit `3ece478`, and reviewers check that the
 named branch still contains it.
 
-While waiting, screen the next candidate from
-`research/triage/next-candidates.md` using the rule recorded there. The pipeline
-is proven now, so a second problem of the same shape is cheap.
+**Do not start a second Erdős-pool problem.** The 2026-09-18 deep-dive
+(`research/triage/deep-dive-2026-09-18.md`) found that all three shortlisted
+candidates (JSP-001020, JSP-000402, JSP-000216) already have complete public
+Lean proofs, and that `plby/lean-proofs` has swept 277 of the 282 resolved
+problems the site still marks unformalized. Five remain; two were claimed
+during the research itself, three are bad targets. The solved-Erdős
+opportunity is exhausted. If we keep playing while #969 is under review, the
+only under-swept ground is the non-Erdős part of the JSP catalog, rescreened
+with the D15 checks. PR #969 itself has no rival: plby has no Erdos365 file
+and the site marks #365 open.
 
 **Submitted 2026-09-17:**
 - Proof repo (now public): <https://github.com/8-0-6/jsp-formal>
@@ -100,3 +107,4 @@ earlier passes had missed.
 | 2026-09-17 | Blind back-translation found a missing IsSquare witness; fixed |
 | 2026-09-17 | Adversarial review returned REJECT; 1 of 3 findings upheld and fixed, 2 refuted against primary sources |
 | 2026-09-17 | Repo made public; PR #969 and claim issue #971 filed. First submission complete |
+| 2026-09-18 | Deep-dive of JSP-001020, JSP-000402, JSP-000216: all three already have public Lean proofs. Pool computation: only 5 resolved Erdős problems remain unformalized anywhere, and 2 of those were claimed within the month. D15 added. See research/triage/deep-dive-2026-09-18.md |

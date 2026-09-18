@@ -116,3 +116,20 @@ Ramsey theory at all, so the real cost is far higher than the page count implies
 Caught by CI on the first real run, which is precisely what CI is for. A
 reviewer rebuilding our proof would have hit the same wall.
 **Reverse if:** never.
+
+### D15 · Before committing to any problem, check the live proof supply, not the catalog
+**2026-09-18.** Before any target is accepted, three checks are mandatory, in
+this order: (1) `plby/lean-proofs` (Boris Alexeev) for an existing file on the
+problem, (2) the `TheJustinSunPrize/awards` issue and PR trackers for
+"[Correction]", "[Recipient]" and "[Award claim]" entries naming the problem or
+its JSP ID, (3) `teorth/erdosproblems` `data/problems.yaml` for current status.
+The JSP catalog's "Lean proof" field and our own crawl snapshots are not
+evidence of availability.
+**Why:** measured on 2026-09-18. All three deep-dive candidates carried
+"Lean proof: No" in the catalog while complete public Lean proofs existed
+(plby for Erdős #1215 and #245, Glazer for #501). plby alone covers 277 of the
+282 resolved problems the site still marks unformalized, and third parties file
+recording PRs for other people's proofs. The catalog lags the proof supply by
+months; the supply moves in days.
+**Reverse if:** the catalog starts tracking external proofs in near real time,
+or the sweep stops.
