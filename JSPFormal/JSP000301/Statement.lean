@@ -88,6 +88,19 @@ theorem not_powerful_2 : ¬ Powerful 2 := by
   have := h 2 Nat.prime_two (by norm_num)
   norm_num at this
 
+/-- Sanity: `IsSquare` is actually satisfiable. Without this, a degenerate
+`IsSquare` would make every `¬ IsSquare` conjunct free and the counterexample
+would say far less than it appears to. -/
+theorem isSquare_sq (a : ℕ) : IsSquare (a * a) := ⟨a, rfl⟩
+
+/-- Sanity: a concrete square, and one adjacent to a powerful number. -/
+theorem isSquare_9 : IsSquare (9 : ℕ) := ⟨3, by norm_num⟩
+
+/-- Sanity: `Powerful 0` holds under this definition, because every prime divides
+0. The `0 < n` hypothesis in the statements below is therefore load-bearing, not
+decoration. -/
+theorem powerful_zero : Powerful 0 := fun p _ _ => dvd_zero (p ^ 2)
+
 /-- A perfect square is powerful, so the two notions are not accidentally disjoint. -/
 theorem powerful_sq (a : ℕ) : Powerful (a * a) := by
   intro p hp hdvd
