@@ -107,3 +107,12 @@ is an Annals paper. Page span of the solving paper is the best cheap proxy, but 
 must be combined with a Mathlib check: #800 has a 5-page proof yet Mathlib has no
 Ramsey theory at all, so the real cost is far higher than the page count implies.
 **Reverse if:** our own measured data from problem one contradicts it.
+
+### D14 · Lean library name comes from lakefile.toml, never the directory
+**2026-09-17.** `bin/verify` reads `defaultTargets` from `lakefile.toml`.
+**Why:** it originally used the directory basename. That worked locally
+(`JSPFormal`) and failed in CI, where the checkout is the repo name
+(`jsp-formal`), producing `import jsp-formal` and "unknown module prefix 'jsp'".
+Caught by CI on the first real run, which is precisely what CI is for. A
+reviewer rebuilding our proof would have hit the same wall.
+**Reverse if:** never.

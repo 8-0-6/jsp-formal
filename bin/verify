@@ -24,7 +24,14 @@ else
 fi
 
 hdr "3/3  Axiom audit (#print axioms)"
-MOD=$(basename "$ROOT")
+# Library name comes from lakefile.toml, NOT the directory basename: the repo
+# directory is named differently from the Lean library (jsp-formal vs JSPFormal),
+# and a hyphenated directory produces an invalid module name.
+MOD=$(awk -F'"' '/^defaultTargets/{print $2; exit}' lakefile.toml)
+if [ -z "$MOD" ]; then
+  MOD=$(awk -F'"' '/^\[\[lean_lib\]\]/{f=1} f && /^name[[:space:]]*=/{print $2; exit}' lakefile.toml)
+fi
+if [ -z "$MOD" ]; then red "cannot determine Lean library name from lakefile.toml"; exit 1; fi
 TMP=$(mktemp -d); CHK="$TMP/AxiomCheck.lean"
 { echo "import $MOD"; grep -vE '^\s*(#|$)' targets.txt | while read -r t; do echo "#print axioms $t"; done; } > "$CHK"
 N=$(grep -cvE '^\s*(#|$)' targets.txt)
