@@ -10,7 +10,7 @@ and renders with `bin/status`.
 
 ## Where we are
 
-**Stage: harness built, no problem selected yet.**
+**Stage: triage complete, shortlist of 3, no problem committed yet.**
 
 The environment and the verification spine are complete and tested. No
 formalization work has started, because the problem is not chosen. Choosing it
@@ -35,17 +35,21 @@ than half the outcome.
       (found n=6 as a counterexample), which is the Stage 1 falsification tool
 - [x] Remote repo `github.com/8-0-6/jsp-formal`, **private**, owned by the
       claiming account. Flip to public at submission (see `SUBMISSION.md`)
+- [x] `/scout` skill written; Stage 0 run end to end
+- [x] Crawled all 1,249 erdosproblems.com pages into
+      `research/triage/erdos-status.json` (reusable; regenerate with
+      `research/triage/crawl-erdos.py`)
+- [x] `docs/TRIAGE.md`: shortlist of 3, with rejections and reasons
 
 ## Next step
 
-**Run Stage 0 (scout) across the 287 candidates and produce `docs/TRIAGE.md`.**
+**Deep-dive the top two candidates in `docs/TRIAGE.md`.** Read Heath-Brown 1984
+(JSP-000787) and BNPZ 2026 (JSP-000320), and produce a real blueprint estimate for
+each, including which Mathlib pieces already exist. Budget 4 hours. Only then commit.
 
-Parallel, read-only, cheap. Each scout scores one problem on resolution shape,
-solution-paper length, Mathlib coverage, statement risk, and whether it is
-already formalized elsewhere. Output is a ranked shortlist of 3 to 5.
-
-Then Stage 1 on the top candidate, which ends with a founder sign-off on the
-English back-translation of the Lean statement.
+The headline from triage: 298 of 577 solved Erdős problems are already
+Lean-verified, so the easy wins are gone. A realistic first target is weeks of
+work on a 5 to 15 page paper.
 
 ## Open questions
 
@@ -75,3 +79,4 @@ English back-translation of the Lean statement.
 | 2026-09-17 | REPL daemon built; inner loop ~400x faster |
 | 2026-09-17 | Pipeline designed; PRD, decisions, and submission checklist written |
 | 2026-09-17 | Private repo created under 8-0-6 and pushed |
+| 2026-09-17 | Stage 0 triage: 1,249 problems crawled, 279 solved-not-formalized found, shortlist of 3 |

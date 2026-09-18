@@ -89,3 +89,21 @@ the account that files the claim, so it is created under `8-0-6` from the start
 rather than transferred later, since transfers complicate the ownership check.
 Private for now per D8; flip to public at submission.
 **Reverse if:** never private-vs-public is revisited at submission time only.
+
+### D12 · erdosproblems.com is the authority on Lean status
+**2026-09-17.** Before committing to any problem, check its status on
+erdosproblems.com, not `google-deepmind/formal-conjectures`.
+**Why:** formal-conjectures lags the site. Problems #175, #250 and #48 still
+carry `sorry` in the repo while the site already marks them `PROVED (LEAN)`.
+Trusting the repo would mean duplicating finished work and producing an
+unclaimable proof.
+**Reverse if:** formal-conjectures starts tracking the site's status field.
+
+### D13 · Rank candidates by solving-paper page span and Mathlib coverage
+**2026-09-17.** Not by statement length, question form, or fame.
+**Why:** measured during the first triage. Statement length correlates with fame,
+not difficulty: Erdős #402 is one line with a 38-page proof, #109 is one line and
+is an Annals paper. Page span of the solving paper is the best cheap proxy, but it
+must be combined with a Mathlib check: #800 has a 5-page proof yet Mathlib has no
+Ramsey theory at all, so the real cost is far higher than the page count implies.
+**Reverse if:** our own measured data from problem one contradicts it.
