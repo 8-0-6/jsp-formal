@@ -10,7 +10,7 @@ and renders with `bin/status`.
 
 ## Where we are
 
-**Stage: JSP-000301 proved and verified. Awaiting founder sign-off before submission.**
+**Stage: JSP-000301 SUBMITTED. Awaiting maintainer review.**
 
 The environment and the verification spine are complete and tested. No
 formalization work has started, because the problem is not chosen. Choosing it
@@ -45,9 +45,19 @@ than half the outcome.
 
 ## Next step
 
-**Founder sign-off on `problems/JSP-000301/FIDELITY.md` section 5.** That is the
-Stage 1 gate and the one check no machine can do. Then, if approved, Stage 5:
-flip the repo public, PR the awards catalog, file the claim issue.
+**Wait for maintainer review**, then act on whatever they say. Do not force-push
+the submitted branch: PR #969 pins commit `3ece478`, and reviewers check that the
+named branch still contains it.
+
+While waiting, screen the next candidate from
+`research/triage/next-candidates.md` using the rule recorded there. The pipeline
+is proven now, so a second problem of the same shape is cheap.
+
+**Submitted 2026-09-17:**
+- Proof repo (now public): <https://github.com/8-0-6/jsp-formal>
+- PR: <https://github.com/TheJustinSunPrize/awards/pull/969>
+- Claim: <https://github.com/TheJustinSunPrize/awards/issues/971>
+- Role claimed: Lean formalization only
 
 Both shortlisted candidates died on deep-dive (#387 is 62 pages using sieve
 methods and exponential sums, not the 7 the heuristic reported; #946 is
@@ -89,3 +99,4 @@ earlier passes had missed.
 | 2026-09-17 | JSP-000301 proved end to end, 18/18 targets axiom-clean, CI green |
 | 2026-09-17 | Blind back-translation found a missing IsSquare witness; fixed |
 | 2026-09-17 | Adversarial review returned REJECT; 1 of 3 findings upheld and fixed, 2 refuted against primary sources |
+| 2026-09-17 | Repo made public; PR #969 and claim issue #971 filed. First submission complete |

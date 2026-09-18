@@ -3,13 +3,13 @@
   "slug": "powerful-consecutive",
   "title": "If two consecutive positive integers are powerful, must at least one be a perfect square?",
   "catalog_url": "",
-  "stage": "verified",
+  "stage": "submitted",
   "budget": {
     "hours": 40,
     "usd": 300
   },
   "spent": {
-    "hours": 2.5,
+    "hours": 3.5,
     "usd": 0.0
   },
   "statement": {
@@ -124,6 +124,27 @@
     {
       "ts": "2026-09-17 21:40",
       "event": "owner authorised submission without line-by-line review; recorded in FIDELITY.md"
+    },
+    {
+      "ts": "2026-09-17 22:08",
+      "event": "repo made public"
+    },
+    {
+      "ts": "2026-09-17 22:08",
+      "event": "PR #969 opened against TheJustinSunPrize/awards (1 file, 1 entry)"
+    },
+    {
+      "ts": "2026-09-17 22:08",
+      "event": "award claim issue #971 filed"
     }
-  ]
+  ],
+  "submission": {
+    "pr": "https://github.com/TheJustinSunPrize/awards/pull/969",
+    "claim_issue": "https://github.com/TheJustinSunPrize/awards/issues/971",
+    "pinned_commit": "3ece478053a97a80aad5b1628bc3e830cde115d6",
+    "branch": "main",
+    "repo": "https://github.com/8-0-6/jsp-formal",
+    "submitted": "2026-09-17",
+    "role_claimed": "Lean formalization only"
+  }
 }
