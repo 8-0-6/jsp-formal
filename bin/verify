@@ -8,8 +8,14 @@ red(){ printf '\033[31m%s\033[0m\n' "$*"; }; grn(){ printf '\033[32m%s\033[0m\n'
 hdr(){ printf '\n\033[1m== %s\033[0m\n' "$*"; }
 
 hdr "1/3  Build"
-if lake build 2>&1 | grep -vE 'Downloa|Decompress|^trace:' | tee /tmp/jsp_build.log | grep -qE '^error'; then
-  red "BUILD FAILED"; grep -E '^(error|warning)' /tmp/jsp_build.log | head -40; FAIL=1
+# Trust lake's exit code, not a grep over its output. Grepping for '^error'
+# silently passed a build whose module never compiled.
+lake build > /tmp/jsp_build.log 2>&1
+BUILD_RC=$?
+if [ "$BUILD_RC" -ne 0 ]; then
+  red "BUILD FAILED (lake exit $BUILD_RC)"
+  grep -vE 'Downloa|Decompress|^trace:' /tmp/jsp_build.log | tail -40
+  FAIL=1
 else
   grn "build ok"
 fi
@@ -36,15 +42,7 @@ TMP=$(mktemp -d); CHK="$TMP/AxiomCheck.lean"
 { echo "import $MOD"; grep -vE '^\s*(#|$)' targets.txt | while read -r t; do echo "#print axioms $t"; done; } > "$CHK"
 N=$(grep -cvE '^\s*(#|$)' targets.txt)
 if [ "$N" -eq 0 ]; then red "targets.txt is empty: nothing is being verified"; FAIL=1; fi
-OUT=$(lake env lean "$CHK" 2>&1)
-echo "$OUT" | grep -E "depends on|does not depend" | sed 's/^/  /'
-if echo "$OUT" | grep -qE 'sorryAx|error'; then
-  red "AXIOM AUDIT FAILED (sorry or error)"; echo "$OUT" | grep -E 'error|sorryAx' | head -20; FAIL=1
-elif echo "$OUT" | grep -E 'depends on axioms' | grep -qvE '^\S+ .*\[(propext|Classical\.choice|Quot\.sound)(, (propext|Classical\.choice|Quot\.sound))*\]$'; then
-  red "NON-STANDARD AXIOM DEPENDENCY"; FAIL=1
-else
-  grn "$N/$N targets depend only on standard axioms"
-fi
+if ! lake env lean "$CHK" 2>&1 | python3 harness/parse_axioms.py "$N"; then FAIL=1; fi
 rm -rf "$TMP"
 
 echo

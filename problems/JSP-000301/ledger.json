@@ -1,0 +1,103 @@
+{
+  "id": "JSP-000301",
+  "slug": "powerful-consecutive",
+  "title": "If two consecutive positive integers are powerful, must at least one be a perfect square?",
+  "catalog_url": "",
+  "stage": "statement",
+  "budget": {
+    "hours": 40,
+    "usd": 300
+  },
+  "spent": {
+    "hours": 1.0,
+    "usd": 0.0
+  },
+  "statement": {
+    "locked": false,
+    "locked_at": null,
+    "lean_name": "JSPFormal.JSP000301.answer_is_no",
+    "source_ref": "Golomb, Powerful numbers, Amer. Math. Monthly 77(8) (1970), 848-852; counterexample recorded in the JSP catalog review note 2026-09-13",
+    "fidelity_signed_off": false
+  },
+  "goals": [
+    {
+      "id": "answer_is_no",
+      "status": "proved",
+      "depends_on": [
+        "exists_counterexample"
+      ],
+      "attempts": 1
+    },
+    {
+      "id": "exists_counterexample",
+      "status": "proved",
+      "depends_on": [
+        "powerful_12167",
+        "powerful_12168",
+        "not_sq_12167",
+        "not_sq_12168"
+      ],
+      "attempts": 1
+    },
+    {
+      "id": "powerful_12167",
+      "status": "proved",
+      "depends_on": [],
+      "attempts": 1
+    },
+    {
+      "id": "powerful_12168",
+      "status": "proved",
+      "depends_on": [],
+      "attempts": 1
+    },
+    {
+      "id": "not_sq_12167",
+      "status": "proved",
+      "depends_on": [
+        "not_isSquare_of_between"
+      ],
+      "attempts": 1
+    },
+    {
+      "id": "not_sq_12168",
+      "status": "proved",
+      "depends_on": [
+        "not_isSquare_of_between"
+      ],
+      "attempts": 1
+    },
+    {
+      "id": "not_isSquare_of_between",
+      "status": "proved",
+      "depends_on": [],
+      "attempts": 2
+    },
+    {
+      "id": "sanity_checks",
+      "status": "proved",
+      "depends_on": [],
+      "attempts": 2
+    },
+    {
+      "id": "vacuity_witness",
+      "status": "proved",
+      "depends_on": [],
+      "attempts": 1
+    }
+  ],
+  "log": [
+    {
+      "ts": "2026-09-17 20:59",
+      "event": "created"
+    },
+    {
+      "ts": "2026-09-17 21:14",
+      "event": "statement written and fully proved; 14/14 targets axiom-clean"
+    },
+    {
+      "ts": "2026-09-17 21:14",
+      "event": "fidelity: blind back-translation and adversarial review dispatched"
+    }
+  ]
+}

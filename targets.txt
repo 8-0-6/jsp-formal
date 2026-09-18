@@ -1,6 +1,26 @@
 # Fully-qualified theorem names that must compile with NO sorry and only the
 # three standard Lean axioms. One per line. Lines starting with # are ignored.
+
+# --- harness smoke tests ---
 JSPFormal.sum_odds
 JSPFormal.twelve_divisor_rich
 JSPFormal.pigeonhole
 JSPFormal.infinitely_many_primes
+
+# --- JSP-000301: consecutive powerful integers, neither a perfect square ---
+# Main result: the catalog question is answered NO.
+JSPFormal.JSP000301.answer_is_no
+# Golomb's explicit counterexample.
+JSPFormal.JSP000301.exists_consecutive_powerful_neither_square
+# Vacuity witness: consecutive powerful pairs exist, so the question is not empty.
+JSPFormal.JSP000301.exists_consecutive_powerful
+# Sanity checks: `Powerful` is our own wording, so prove it is discriminating
+# and not accidentally trivial.
+JSPFormal.JSP000301.not_powerful_12
+JSPFormal.JSP000301.not_powerful_2
+JSPFormal.JSP000301.powerful_sq
+# Supporting facts, audited individually.
+JSPFormal.JSP000301.powerful_12167
+JSPFormal.JSP000301.powerful_12168
+JSPFormal.JSP000301.not_isSquare_12167
+JSPFormal.JSP000301.not_isSquare_12168
