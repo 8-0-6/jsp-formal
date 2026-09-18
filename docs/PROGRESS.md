@@ -40,6 +40,8 @@ than half the outcome.
       `research/triage/erdos-status.json` (reusable; regenerate with
       `research/triage/crawl-erdos.py`)
 - [x] `docs/TRIAGE.md`: shortlist of 3, with rejections and reasons
+- [x] CI green on a clean Ubuntu machine. First run failed on a real portability
+      bug (module name taken from the directory basename), now fixed (D14)
 
 ## Next step
 
@@ -80,3 +82,4 @@ work on a 5 to 15 page paper.
 | 2026-09-17 | Pipeline designed; PRD, decisions, and submission checklist written |
 | 2026-09-17 | Private repo created under 8-0-6 and pushed |
 | 2026-09-17 | Stage 0 triage: 1,249 problems crawled, 279 solved-not-formalized found, shortlist of 3 |
+| 2026-09-17 | CI caught a directory-name portability bug in bin/verify; fixed, CI green |
