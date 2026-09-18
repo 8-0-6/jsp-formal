@@ -108,3 +108,4 @@ earlier passes had missed.
 | 2026-09-17 | Adversarial review returned REJECT; 1 of 3 findings upheld and fixed, 2 refuted against primary sources |
 | 2026-09-17 | Repo made public; PR #969 and claim issue #971 filed. First submission complete |
 | 2026-09-18 | Deep-dive of JSP-001020, JSP-000402, JSP-000216: all three already have public Lean proofs. Pool computation: only 5 resolved Erdős problems remain unformalized anywhere, and 2 of those were claimed within the month. D15 added. See research/triage/deep-dive-2026-09-18.md |
+| 2026-09-18 | Founder-approved 4h screen of the 41 open falsifiable/decidable/verifiable problems for a compute-plus-certify play (solver role). 38 killed with reasons. 3 lottery tickets: #488 (multiples density), #699 (binomial gcd), #617 r=5 (SAT). Capped at 15h compute, gated on #969. See research/triage/falsifiable-screen-2026-09-18.md |
