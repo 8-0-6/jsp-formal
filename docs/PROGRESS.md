@@ -4,7 +4,7 @@ Current state and the next concrete step. Update this at the end of every
 working session. Detailed per-problem state lives in `problems/<ID>/ledger.json`
 and renders with `bin/status`.
 
-**Last updated:** 2026-09-18
+**Last updated:** 2026-09-19
 
 ---
 
@@ -109,3 +109,4 @@ earlier passes had missed.
 | 2026-09-17 | Repo made public; PR #969 and claim issue #971 filed. First submission complete |
 | 2026-09-18 | Deep-dive of JSP-001020, JSP-000402, JSP-000216: all three already have public Lean proofs. Pool computation: only 5 resolved Erdős problems remain unformalized anywhere, and 2 of those were claimed within the month. D15 added. See research/triage/deep-dive-2026-09-18.md |
 | 2026-09-18 | Founder-approved 4h screen of the 41 open falsifiable/decidable/verifiable problems for a compute-plus-certify play (solver role). 38 killed with reasons. 3 lottery tickets: #488 (multiples density), #699 (binomial gcd), #617 r=5 (SAT). Capped at 15h compute, gated on #969. See research/triage/falsifiable-screen-2026-09-18.md |
+| 2026-09-19 | All three tickets closed, no witness found, ~9h of the 15h cap spent. #488 looks true with constant 2 sharp (extremal family found); #699 exhaustively clean to n=8.5M; #617 SAT gave no verdict in 4h total and its likely answer is uncertifiable for us. Compute adventure ended on schedule. See research/experiments/log-2026-09-18.md |
