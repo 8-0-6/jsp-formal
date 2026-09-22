@@ -56,9 +56,11 @@ Two things are worth doing while waiting, in this order:
    the new v4 rules (see below), priority is decided by the earliest verified
    proof commit, not by who opened a PR first. Our advantage over the duplicate
    submission is now an evidence question, not a timestamp question.
-2. **Run the upstream `lean-verify` skill against commit `3ece478`** and attach
-   the report to PR #969. It is optional, not a requirement, but it is the
-   maintainers' own checklist and no reviewer has reached our PR yet.
+2. ~~Run the upstream `lean-verify` skill against commit `3ece478`~~ **Done
+   2026-09-22, verdict Verification passed.** Report and evidence live on branch
+   `audit/lean-verify-3ece478` under `verification/`. The comment for PR #969 is
+   drafted at `problems/JSP-000301/pr969-verification-comment.md` and still needs
+   to be posted: this environment has no write access to the awards repository.
 
 Screening the next candidate from `research/triage/next-candidates.md` is lower
 priority than it was: see the acceptance evidence below.
@@ -199,3 +201,5 @@ and priority being decided on commit evidence we have not published.
 | 2026-09-17 | Repo made public; PR #969 and claim issue #971 filed. First submission complete |
 | 2026-09-18 | Competitive position measured: 672nd of 832 PRs by submission time |
 | 2026-09-22 | Upstream check: #969 still open, zero Lean submissions accepted repo-wide, first six candidates published, v4 rules changed priority to earliest commit |
+| 2026-09-22 | Priority check: our commit 3ece478 predates the duplicate #1197's proof commit by 10 h 54 min, and predates that repository's first commit |
+| 2026-09-22 | Ran the upstream lean-verify self-check on 3ece478. Verdict: Verification passed. Clean source build, 18/18 targets standard-axiom-only, independent statement bridge compiles |
