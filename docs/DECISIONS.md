@@ -116,3 +116,28 @@ Ramsey theory at all, so the real cost is far higher than the page count implies
 Caught by CI on the first real run, which is precisely what CI is for. A
 reviewer rebuilding our proof would have hit the same wall.
 **Reverse if:** never.
+
+### D15 · Priority is proof-commit evidence, not PR timing
+**2026-09-22.** Treat the publishable history of commit `3ece478` as the thing
+that defends JSP-000301, not the fact that PR #969 precedes the duplicate #1197
+by eleven hours.
+**Why:** the upstream v4 process merged 2026-09-19 states "PR opening time does
+not determine priority" and decides contests on the earliest verified commit in
+the accepted proof repository. It also states that git author and committer dates
+can be supplied by the user, so it requires independently checkable public
+history tying a proof version to its claimed date. Our eleven-hour lead was
+measured against a rule that no longer exists. What still counts is that the repo
+was public, pushed and CI-stamped at a checkable time.
+**Reverse if:** upstream restores submission-time ordering.
+
+### D16 · Do not start problem two while acceptance is zero
+**2026-09-22.** Hold at one submission until a maintainer acts on any external
+Lean PR, ours or anyone's.
+**Why:** measured on 2026-09-22, the catalog flags exactly 66 problems as having
+a Lean proof, the same 66 as on 2026-09-17, across roughly 2,600 upstream PRs.
+The six candidates published so far are all on problems that were already
+eligible before the rush. A second formalization would join the same unread
+queue, so the marginal value is near zero while the review channel is untested.
+Cost is not the objection: problem one took 3.5 hours.
+**Reverse if:** any external Lean submission is accepted and flips a catalog
+entry to **Lean proof: Yes**, or a maintainer engages with PR #969.
