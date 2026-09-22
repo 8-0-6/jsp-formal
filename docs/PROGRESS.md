@@ -100,10 +100,56 @@ and refs, not from the PR API.
 - **PR #969 is still open and still mergeable.** `refs/pull/969/merge` exists
   upstream, which GitHub only publishes for open, conflict-free PRs. No review
   has landed and no maintainer commit references it.
-- The duplicate #1197 is **also still open**. Neither has been accepted.
 - The JSP-000301 catalog entry is materially unchanged: **Lean proof: No**,
-  **Eligible to claim: No**. The only edit was a repo-wide field rename,
-  `Public review` to `Scholarly recognition`, which does not collide with our diff.
+  **Eligible to claim: No**.
+
+### Correction: we are not first on JSP-000301
+
+The 2026-09-18 note that "on JSP-000301 specifically we are first" was wrong. It
+was based on comparing against a single duplicate, #1197, rather than searching
+the whole PR set.
+
+Measured 2026-09-22 by fetching all 3,319 upstream PR heads and checking which
+ones set **Lean proof: Yes** on JSP-000301: **33 PRs claim this problem.**
+Fourteen of them were opened before ours.
+
+Ranked by the proof commit each PR selects, which is what the v4 rules compare,
+**we are 13th of 33.** Twelve commits predate ours:
+
+| Rank | PR | Proof repository | Commit date (UTC) |
+| --- | --- | --- | --- |
+| 1 | #2213 | shunfeng8421/jsp301-lean | 2026-09-16 19:09:27 |
+| 2 | #579 | Jeffery-Choo/jsp-000301-lean | 2026-09-17 07:26:31 |
+| 3 | #587 | zjukop3/jsp-000301-powerful-pairs | 2026-09-17 08:08:48 |
+| 4 | #666 | zwliu1617-ux/jsp000301-formalization | 2026-09-17 10:53:21 |
+| 5 | #718 | moxiaoaiii/jsp-000301-lean | 2026-09-17 13:04:40 |
+| 6 | #740 | CHENLexiao8848/jsp-000637-lean | 2026-09-17 13:22:04 |
+| 7 | #728 | Yaohua-Leo/jsp-000301-consecutive-powerful | 2026-09-17 13:58:11 |
+| 8 | #760 | sumo166/JustinSunPrize | 2026-09-17 14:11:39 |
+| 9 | #791 | aichiwuhuarou/jsp-lean-proofs | 2026-09-17 14:46:57 |
+| 10 | #809 | Neo7672/jsp-000301-lean-proof | 2026-09-17 15:01:54 |
+| 11 | #793 | chiewoscar/jsp-000301-lean-proof | 2026-09-17 15:29:47 |
+| 12 | #851 | safeguardessentials1-spec/jsp-000301-powerful | 2026-09-17 18:03:29 |
+| **13** | **#969** | **8-0-6/jsp-formal** | **2026-09-18 01:40:06** |
+
+Full table, including the 20 later claims, in
+`research/jsp-000301-competing-claims.tsv`.
+
+None of the twelve shows an author/committer date mismatch, so there is no
+cheap backdating signature to point at. Beating them on priority would require
+showing that an earlier proof fails verification or attribution, which is the
+maintainers' job, not a claim we can make from commit dates.
+
+What survives: our commit is corroborated by a GitHub Actions run on that exact
+commit at 2026-09-18T01:41:49Z, a server-recorded time no committer can set. Most
+of the earlier repositories are small single-purpose repos; whether any carries
+equivalent corroboration has not been checked.
+
+**Strategic read.** The scarce thing was never speed, and it was never our
+harness. It was picking a problem nobody else picks. Our triage called
+JSP-000301 "close to unique" and 32 other people found it in the same week. Any
+problem cheap enough for us to do in 3.5 hours is cheap enough for a hundred
+others.
 
 ### Nobody's Lean submission has been accepted
 
@@ -201,5 +247,6 @@ and priority being decided on commit evidence we have not published.
 | 2026-09-17 | Repo made public; PR #969 and claim issue #971 filed. First submission complete |
 | 2026-09-18 | Competitive position measured: 672nd of 832 PRs by submission time |
 | 2026-09-22 | Upstream check: #969 still open, zero Lean submissions accepted repo-wide, first six candidates published, v4 rules changed priority to earliest commit |
-| 2026-09-22 | Priority check: our commit 3ece478 predates the duplicate #1197's proof commit by 10 h 54 min, and predates that repository's first commit |
+| 2026-09-22 | Priority check against #1197 only: our commit leads by 10 h 54 min |
+| 2026-09-22 | Full sweep of all 3,319 upstream PRs: 33 claim JSP-000301, we are 13th by proof commit date. The earlier "we are first" note was wrong |
 | 2026-09-22 | Ran the upstream lean-verify self-check on 3ece478. Verdict: Verification passed. Clean source build, 18/18 targets standard-axiom-only, independent statement bridge compiles |

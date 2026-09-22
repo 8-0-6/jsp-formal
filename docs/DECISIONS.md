@@ -141,3 +141,25 @@ queue, so the marginal value is near zero while the review channel is untested.
 Cost is not the objection: problem one took 3.5 hours.
 **Reverse if:** any external Lean submission is accepted and flips a catalog
 entry to **Lean proof: Yes**, or a maintainer engages with PR #969.
+
+### D17 · Measure the whole field, not the one competitor you noticed
+**2026-09-22.** Before claiming any position on a problem, enumerate every
+upstream PR touching it. The method that works: fetch all PR heads
+(`git fetch origin 'refs/pull/*/head:refs/remotes/pr/*'`), compare the blob hash
+of the relevant catalog file against main, and read the entry from each differing
+blob. No GitHub API access is needed.
+**Why:** we recorded "on JSP-000301 we are first" on 2026-09-18 after comparing
+against one duplicate we happened to know about. The full sweep found 33 claims
+on that problem, 14 of them filed before ours, and 12 with proof commits earlier
+than ours. The claim was wrong for four days and was about to be repeated to
+maintainers.
+**Reverse if:** never.
+
+### D18 · Cheapness is not an edge, it is a crowd signal
+**2026-09-22.** When triage says a problem is a free win, assume a hundred other
+people's triage said the same. Rank candidates by how much they are avoided, not
+by how little they cost.
+**Why:** JSP-000301 took us 3.5 hours and our own notes called it "close to
+unique". Thirty-three submissions landed on it within a week. The 3.5 hours were
+not the moat; there was no moat.
+**Reverse if:** a measured sweep shows cheap problems are not contested.
