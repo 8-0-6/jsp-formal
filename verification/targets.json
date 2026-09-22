@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "project": {
+    "root": "/tmp/claude-0/-home-user-jsp-formal/c7f3871f-a94e-5822-8644-afeb16595b66/scratchpad/lean-verify-JSP-000301-20260922T132807Z/sources/proof",
+    "repository": "https://github.com/8-0-6/jsp-formal",
+    "commit": "3ece478053a97a80aad5b1628bc3e830cde115d6",
+    "toolchain": "leanprover/lean4:v4.35.0-rc2"
+  },
+  "problems": [
+    {
+      "id": "JSP-000301",
+      "source": "https://github.com/TheJustinSunPrize/awards/blob/main/problems/catalog-0301-0400.md#JSP-000301",
+      "requirements": [
+        {
+          "id": "r1-definition",
+          "description": "'Powerful' must mean Golomb's notion: every prime dividing n divides it at least twice (equivalently exponent at least 2 in the factorisation of n).",
+          "targets": [
+            "powerful_iff_primeFactors",
+            "not_powerful_12",
+            "not_powerful_2",
+            "powerful_sq",
+            "powerful_zero"
+          ],
+          "coverage": "pending"
+        },
+        {
+          "id": "r2-consecutive-positive",
+          "description": "The two integers must be consecutive and positive: n and n+1 with 0 < n.",
+          "targets": [
+            "exists_consecutive_powerful",
+            "exists_consecutive_powerful_neither_square"
+          ],
+          "coverage": "pending"
+        },
+        {
+          "id": "r3-both-powerful",
+          "description": "Both members of the exhibited pair must be powerful.",
+          "targets": [
+            "powerful_12167",
+            "powerful_12168"
+          ],
+          "coverage": "pending"
+        },
+        {
+          "id": "r4-neither-square",
+          "description": "Neither member of the exhibited pair may be a perfect square.",
+          "targets": [
+            "not_isSquare_12167",
+            "not_isSquare_12168",
+            "isSquare_sq",
+            "isSquare_9"
+          ],
+          "coverage": "pending"
+        },
+        {
+          "id": "r5-answer-no",
+          "description": "The yes/no question must be answered: refute 'if two consecutive positive integers are powerful then at least one is a perfect square'.",
+          "targets": [
+            "answer_is_no"
+          ],
+          "coverage": "pending"
+        }
+      ]
+    }
+  ],
+  "targets": [
+    {
+      "id": "answer_is_no",
+      "problem": "JSP-000301",
+      "role": "theorem",
+      "module": "JSPFormal.JSP000301.Statement",
+      "source": "JSPFormal/JSP000301/Statement.lean",
+      "declaration": "JSPFormal.JSP000301.answer_is_no"
+    },
+    {
+      "id": "exists_consecutive_powerful_neither_square",
+      "problem": "JSP-000301",
+      "role": "theorem",
+      "module": "JSPFormal.JSP000301.Statement",
+      "source": "JSPFormal/JSP000301/Statement.lean",
+      "declaration": "JSPFormal.JSP000301.exists_consecutive_powerful_neither_square"
+    },
+    {
+      "id": "exists_consecutive_powerful",
+      "problem": "JSP-000301",
+      "role": "theorem",
+      "module": "JSPFormal.JSP000301.Statement",
+      "source": "JSPFormal/JSP000301/Statement.lean",
+      "declaration": "JSPFormal.JSP000301.exists_consecutive_powerful"
+    },
+    {
+      "id": "not_powerful_12",
+      "problem": "JSP-000301",
+      "role": "theorem",
+      "module": "JSPFormal.JSP000301.Statement",
+      "source": "JSPFormal/JSP000301/Statement.lean",
+      "declaration": "JSPFormal.JSP000301.not_powerful_12"
+    },
+    {
+      "id": "not_powerful_2",
+      "problem": "JSP-000301",
+      "role": "theorem",
+      "module": "JSPFormal.JSP000301.Statement",
+      "source": "JSPFormal/JSP000301/Statement.lean",
+      "declaration": "JSPFormal.JSP000301.not_powerful_2"
+    },
+    {
+      "id": "powerful_sq",
+      "problem": "JSP-000301",
+      "role": "theorem",
+      "module": "JSPFormal.JSP000301.Statement",
+      "source": "JSPFormal/JSP000301/Statement.lean",
+      "declaration": "JSPFormal.JSP000301.powerful_sq"
+    },
+    {
+      "id": "powerful_iff_primeFactors",
+      "problem": "JSP-000301",
+      "role": "theorem",
+      "module": "JSPFormal.JSP000301.Statement",
+      "source": "JSPFormal/JSP000301/Statement.lean",
+      "declaration": "JSPFormal.JSP000301.powerful_iff_primeFactors"
+    },
+    {
+      "id": "isSquare_sq",
+      "problem": "JSP-000301",
+      "role": "theorem",
+      "module": "JSPFormal.JSP000301.Statement",
+      "source": "JSPFormal/JSP000301/Statement.lean",
+      "declaration": "JSPFormal.JSP000301.isSquare_sq"
+    },
+    {
+      "id": "isSquare_9",
+      "problem": "JSP-000301",
+      "role": "theorem",
+      "module": "JSPFormal.JSP000301.Statement",
+      "source": "JSPFormal/JSP000301/Statement.lean",
+      "declaration": "JSPFormal.JSP000301.isSquare_9"
+    },
+    {
+      "id": "powerful_zero",
+      "problem": "JSP-000301",
+      "role": "theorem",
+      "module": "JSPFormal.JSP000301.Statement",
+      "source": "JSPFormal/JSP000301/Statement.lean",
+      "declaration": "JSPFormal.JSP000301.powerful_zero"
+    },
+    {
+      "id": "powerful_12167",
+      "problem": "JSP-000301",
+      "role": "theorem",
+      "module": "JSPFormal.JSP000301.Statement",
+      "source": "JSPFormal/JSP000301/Statement.lean",
+      "declaration": "JSPFormal.JSP000301.powerful_12167"
+    },
+    {
+      "id": "powerful_12168",
+      "problem": "JSP-000301",
+      "role": "theorem",
+      "module": "JSPFormal.JSP000301.Statement",
+      "source": "JSPFormal/JSP000301/Statement.lean",
+      "declaration": "JSPFormal.JSP000301.powerful_12168"
+    },
+    {
+      "id": "not_isSquare_12167",
+      "problem": "JSP-000301",
+      "role": "theorem",
+      "module": "JSPFormal.JSP000301.Statement",
+      "source": "JSPFormal/JSP000301/Statement.lean",
+      "declaration": "JSPFormal.JSP000301.not_isSquare_12167"
+    },
+    {
+      "id": "not_isSquare_12168",
+      "problem": "JSP-000301",
+      "role": "theorem",
+      "module": "JSPFormal.JSP000301.Statement",
+      "source": "JSPFormal/JSP000301/Statement.lean",
+      "declaration": "JSPFormal.JSP000301.not_isSquare_12168"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "ready_for_target_checks": true,
+  "issues": [],
+  "head": "3ece478053a97a80aad5b1628bc3e830cde115d6",
+  "git_status": "",
+  "toolchain_file": "leanprover/lean4:v4.35.0-rc2",
+  "file_sha256": {
+    "JSPFormal/JSP000301/Statement.lean": "7fff6e44fee6fae9111f4e484ada1fffc948be5cd7567ef411251e05e6817f99",
+    "lake-manifest.json": "5d8605e12923ffc5167e75c83be9474722af615c815617d27112574a787ce423",
+    "lakefile.lean": null,
+    "lakefile.toml": "59449e91c429764945db0c27f30ad7ed627d767aa367aa7e9eda46fd6f5e595d",
+    "lean-toolchain": "8dc8d6f560141069d9073e370611716ef77ada0da8ffa37e2149f44b2e63ac7a"
+  },
+  "manual_preconditions": [
+    "isolation and resource limits established",
+    "clean source build and trusted cache provenance recorded",
+    "actual dependency SHAs match fixed evidence",
+    "tool binaries are trusted and match the pinned toolchain",
+    "all untracked inputs and module/source mappings reviewed"
+  ],
+  "checker_compatibility": "not_probed; inspect pinned checker separately",
+  "manifest_sha256": "2ce3bb00696a287dfe87e13a4d3bae3209524b1cc39be8fae6e040454c03eafc",
+  "script_sha256": "5db45dddcb4d588bc27e7c7161fbca5cedaa3e73e1c40843d21f5a214323cd07",
+  "exit_code": 0
+}
