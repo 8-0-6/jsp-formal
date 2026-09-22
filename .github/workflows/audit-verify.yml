@@ -1,0 +1,83 @@
+name: audit-verify
+
+# Pre-submission self-check for JSP-000301, following the upstream
+# `lean-verify` skill. Runs on the audit branch only. Unlike verify.yml this
+# workflow restores no build cache, so the project library is elaborated from
+# source, and it prints the raw `#print axioms` output for every target.
+
+on:
+  push:
+    branches: ["audit/**"]
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o elan-init.sh
+          sh elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Record environment and source state
+        run: |
+          echo "commit under audit: $(git rev-parse HEAD)"
+          echo "working tree (empty means unmodified): [$(git status --porcelain)]"
+          echo "toolchain pin: $(cat lean-toolchain)"
+          elan --version
+          lean --version
+          lake --version
+          uname -srm
+          echo "--- pinned dependency revisions ---"
+          cat lake-manifest.json
+
+      - name: Confirm no prebuilt artifacts are present
+        run: |
+          if [ -d .lake/build ]; then
+            echo "UNEXPECTED: .lake/build exists in a fresh checkout"
+            find .lake/build -maxdepth 4 | head -50
+            exit 1
+          fi
+          echo "no .lake/build in the checkout: the library must be elaborated from source"
+
+      - name: Fetch pinned Mathlib oleans only
+        run: lake exe cache get
+
+      - name: Show that our own library is still unbuilt
+        run: |
+          find .lake/build -maxdepth 6 -name 'JSPFormal*' -print 2>/dev/null | head \
+            || echo "none"
+          echo "(any JSPFormal artifact listed above would be a cache bypass)"
+
+      - name: Clean build from source
+        run: lake build
+
+      - name: Explicit target module builds
+        run: |
+          lake build JSPFormal.JSP000301.Statement
+          lake build JSPFormal.Smoke
+          lake build JSPFormal
+
+      - name: Raw axiom audit for every declared target
+        run: |
+          {
+            echo 'import JSPFormal'
+            grep -vE '^[[:space:]]*(#|$)' targets.txt | while read -r t; do
+              echo "#check @$t"
+              echo "#print axioms $t"
+            done
+          } > AxiomAudit.lean
+          echo "--- generated audit file ---"
+          cat AxiomAudit.lean
+          echo "--- lean output ---"
+          lake env lean AxiomAudit.lean
+
+      - name: Independent statement bridge
+        run: lake env lean AuditBridge.lean
+
+      - name: Repository gate
+        run: ./bin/verify
