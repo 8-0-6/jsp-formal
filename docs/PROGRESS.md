@@ -87,9 +87,12 @@ harness and deep-diving candidates.
   statement. That is precisely the failure mode `FIDELITY.md` exists to prevent.
 - still open: 702.
 
-On JSP-000301 specifically we are first: PR #969 precedes the duplicate #1197 by
-about eleven hours. Overall lateness likely matters less than per-problem
-priority, since awards are assessed per problem rather than from a fixed pot.
+On JSP-000301 specifically we are **not** first. The 2026-09-18 claim that #969
+led the field was wrong: it compared only against #1197. Re-measured 2026-09-24:
+52 PRs carry "JSP-000301" in the title, 27 of them opened before #969 (17 of
+those still open), the earliest being #13 on 2026-09-16. If priority is by
+submission time we are well back; our edge, if any, is completeness and rule
+compliance. Still zero external merges on any problem as of 2026-09-24.
 
 ## Known constraints
 
